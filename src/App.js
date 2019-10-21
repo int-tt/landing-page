@@ -11,7 +11,10 @@ function App() {
       You'll get an email.
     </p>
   ) : (
-      <form onSubmit={() => setSubmitted(true)}>
+      <form onSubmit={(event) => {
+        setSubmitted(true)
+        event.preventDefault()
+      }}>
         <p>
           A social network, <br />
           Where you are the customer. <br />
