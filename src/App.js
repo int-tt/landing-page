@@ -23,7 +23,7 @@ function App() {
   const [responseCount, setResponseCount] = useState();
   const [fetchStatus, setFetchStatus] = useState("loading");
   const [registerStatus, setRegisterStatus] = useState({
-    type: "peding",
+    type: "pending",
     error: {}
   });
 
@@ -61,72 +61,72 @@ function App() {
       You'll get an email.
     </p>
   ) : (
-    <form
-      onSubmit={event => {
-        event.preventDefault();
-        setRegisterStatus({ type: "sending", error: {} });
+      <form
+        onSubmit={event => {
+          event.preventDefault();
+          setRegisterStatus({ type: "sending", error: {} });
 
-        postResponse({ email, name })
-          .then(e => {
-            if (e.status === "error") {
-              setRegisterStatus({ type: "error", error: e.issues });
-              return;
-            }
+          postResponse({ email, name })
+            .then(e => {
+              if (e.status === "error") {
+                setRegisterStatus({ type: "error", error: e.issues });
+                return;
+              }
 
-            setSubmitted(true);
-          })
-          .catch(e => {
-            // unknown error
-            setRegisterStatus({ type: "error", error: { base: "something" } });
-          });
-      }}
-    >
-      <p>
-        A social network, <br />
-        Where you are the customer. <br />
-        Ad free. Launching soon.
+              setSubmitted(true);
+            })
+            .catch(e => {
+              // unknown error
+              setRegisterStatus({ type: "error", error: { base: "something" } });
+            });
+        }}
+      >
+        <p>
+          A social network, <br />
+          Where you are the customer. <br />
+          Ad free. Launching soon.
       </p>
 
-      <label>
-        Name:
+        <label>
+          Name:
         <input
-          value={name}
-          onChange={e => {
-            setName(e.target.value);
-          }}
-        />
+            value={name}
+            onChange={e => {
+              setName(e.target.value);
+            }}
+          />
+          {
+            <p className="App-error">
+              {errorMessages.name[registerStatus.error.name]}
+            </p>
+          }
+        </label>
+
+        <label>
+          Email:
+        <input
+            value={email}
+            onChange={e => {
+              setEmail(e.target.value);
+            }}
+          />
+          {
+            <p className="App-error">
+              {errorMessages.email[registerStatus.error.email]}
+            </p>
+          }
+        </label>
+
         {
           <p className="App-error">
-            {errorMessages.name[registerStatus.error.name]}
+            {errorMessages.base[registerStatus.error.base]}
           </p>
         }
-      </label>
-
-      <label>
-        Email:
-        <input
-          value={email}
-          onChange={e => {
-            setEmail(e.target.value);
-          }}
-        />
-        {
-          <p className="App-error">
-            {errorMessages.email[registerStatus.error.email]}
-          </p>
-        }
-      </label>
-
-      {
-        <p className="App-error">
-          {errorMessages.base[registerStatus.error.base]}
-        </p>
-      }
-      <button type="submit" disabled={registerStatus.type === "sending"}>
-        {buttonMessage}
-      </button>
-    </form>
-  );
+        <button type="submit" disabled={registerStatus.type === "sending"}>
+          {buttonMessage}
+        </button>
+      </form>
+    );
 
   return <div className="App">{content}</div>;
 }
