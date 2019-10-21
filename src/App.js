@@ -12,8 +12,8 @@ function App() {
     </p>
   ) : (
       <form onSubmit={(event) => {
-        setSubmitted(true)
         event.preventDefault()
+        setSubmitted(true)
       }}>
         <p>
           A social network, <br />
