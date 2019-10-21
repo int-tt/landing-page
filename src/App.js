@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+// import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+  const [submitted, setSubmitted] = useState(false)
+  const content = submitted ? (
+    <p>
+      Thanks for joining in!<br />
+      When we're ready to wow you, <br />
+      You'll get an email.
+    </p>
+  ) : (
+      <form onSubmit={() => setSubmitted(true)}>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+          A social network, <br />
+          Where you are the customer. <br />
+          Ad free. Launching soon.
+      </p>
+        <label>
+          Name:
+        <input value='' />
+        </label>
+        <label>
+          Email:
+        <input value='' />
+        </label>
+        <button type="submit">
+          I'll vouch for that
+      </button>
+      </form>
+    )
+
+  return <div className="App">{content}</div>
 }
 
 export default App;
